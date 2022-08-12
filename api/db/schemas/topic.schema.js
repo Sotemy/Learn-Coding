@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
-const categorySchema = mongoose.Schema({
+
+const topicSchema = mongoose.Schema({
 
     title: {
         type: String,
@@ -11,11 +12,12 @@ const categorySchema = mongoose.Schema({
         type: String,
         required: [true, 'Please add text']
     }, 
-    img: {
-        type: String,
+    lessons: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Lessons'
     }
 },{
     timestamps: true
 })
 
-module.exports = mongoose.model('Category', categorySchema)
+module.exports = mongoose.model('Topics', topicSchema)

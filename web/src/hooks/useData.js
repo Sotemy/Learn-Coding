@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from "axios"
 
 export const useGetData = (url = "") => {
 
@@ -9,11 +8,12 @@ export const useGetData = (url = "") => {
 
     React.useEffect(()=>{
         const fetchData = async()=>{
-            const response = await axios.get(url)
-            setValue(response.data)
+            const response = await fetch(url)
+            setValue(await response.json())
         }
         fetchData()
     }, [url])
+    console.log(value)
 
     return value
 
@@ -24,8 +24,13 @@ export const usePostData = (url = "") => {
     const [value, setValue] = React.useState('')
 
     React.useEffect(()=>{
-        const response = axios.post(url)
-        setValue(response)
+        const fetchData = async()=>{
+            const response = await fetch(url, {
+                method: "post",
+            })
+            setValue(await response.json())
+        }
+        fetchData()
     }, [url])
 
     return [value]

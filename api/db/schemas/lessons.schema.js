@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const appSchema = mongoose.Schema({
+const lessonsSchema = new mongoose.Schema({
 
     title: {
         type: String,
@@ -9,14 +9,15 @@ const appSchema = mongoose.Schema({
     },
     text: {
         type: String,
-        required: [true, 'Please add text']
+        required: [true, 'Please add text'],
     }, 
-    category: {
+    topic: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Category"
+        ref: "Topics"
     }
+
 },{
     timestamps: true
 })
 
-module.exports = mongoose.model('App', appSchema)
+module.exports = mongoose.model('Lessons', lessonsSchema)
