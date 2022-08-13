@@ -13,18 +13,19 @@ const addLessonController = asyncHandler(async(req,res)=>{
     if (title && text && topic){
         const topic_exists = await Topic.findOne({title: topic})
         if (topic_exists){
-            const lesson_exists = await Lessons.findOne({title})
+            const lesson_exists = await Lessons.findOne({title}).findOne({topic:topic})
+
 
             if (lesson_exists){
                 throw new Error('lesson exists')
             }
 
-            const new_lesson = await Lessons.create({title: title, text: text, topic: topic_exists._id})
+            const new_lesson = await Lessons.create({title: title, text: text, topic: topic_exists.title})
 
             if (new_lesson){
 
                 topic_exists.lessons.push(new_lesson._id)
-                topic_exists.save((err) => {throw new Error(err)});
+                topic_exists.save();
                   return res.json(new_lesson)
 
             }
@@ -52,4 +53,17 @@ const addTopicController = asyncHandler(async(req,res)=>{
     throw new Error('not all fields filled')
 })
 
-module.exports = {addLessonController, homeController, addTopicController}
+const topicHandler = asyncHandler(async(req, res)=>{
+    const title = req.params.title;
+    const data = await Lessons.find({topic: title})
+    return res.json(data)
+})
+
+const lessonHandler = asyncHandler(async(req, res)=>{
+    const topic = req.params.title;
+    const lesson = req.params.lesson;
+    const data = await Lessons.findOne({topic: topic, title: lesson})
+    return res.json(data)
+})
+
+module.exports = {addLessonController, homeController, addTopicController, topicHandler, lessonHandler}

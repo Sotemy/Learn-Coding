@@ -1,11 +1,11 @@
 const express = require("express")
-const {addLessonController, homeController, addTopicController} = require("../controllers/app.controller")
+const { homeController, topicHandler, lessonHandler } = require("../controllers/app.controller")
 
 const learnRouter = express.Router()
 
 learnRouter.get('/', homeController)
-learnRouter.post('/add/', addLessonController)
-learnRouter.post("/add/category", addTopicController)
+learnRouter.get('/:title', topicHandler)
+learnRouter.get('/:title/:lesson', lessonHandler)
 
 
 module.exports = learnRouter

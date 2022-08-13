@@ -4,15 +4,14 @@ const lessonsSchema = new mongoose.Schema({
 
     title: {
         type: String,
-        required: [true, 'Please add text'],
-        unique: true
+        required: [true, 'Please add title'],
     },
     text: {
         type: String,
         required: [true, 'Please add text'],
     }, 
     topic: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.String,
         ref: "Topics"
     }
 
