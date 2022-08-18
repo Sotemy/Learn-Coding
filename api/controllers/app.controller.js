@@ -11,9 +11,10 @@ const addLessonController = asyncHandler(async(req,res)=>{
     const {title, text, topic} = req.body;
 
     if (title && text && topic){
+        console.log(topic)
         const topic_exists = await Topic.findOne({title: topic})
         if (topic_exists){
-            const lesson_exists = await Lessons.findOne({title}).findOne({topic:topic})
+            const lesson_exists = await Lessons.findOne({title}).findOne({topic: topic})
 
 
             if (lesson_exists){
@@ -38,13 +39,13 @@ const addLessonController = asyncHandler(async(req,res)=>{
 })
 
 const addTopicController = asyncHandler(async(req,res)=>{
-    const {title, text} = req.body;
-    if (title && text) {
+    const {title} = req.body;
+    if (title) {
         const data = await Topic.findOne({title})
         if(data){
             throw new Error("Title exists")
         }
-        const new_data = await Topic.create({title: title, text: text})
+        const new_data = await Topic.create({title})
         if (new_data) {
             return res.status(200).json({message: 'Created'})
         }

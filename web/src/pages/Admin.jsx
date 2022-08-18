@@ -6,8 +6,8 @@ import { usePostData } from '../hooks/useData';
 
 export const Admin = () => {
 
-    const [topic, postTopic] = usePostData('http://localhost:4000/admin/add/category')
-    const [lesson, postLesson] = usePostData('http://localhost:4000/admin/add/')
+    const [topic, postTopic] = usePostData(process.env.REACT_APP_API_URL+'/admin/add/category')
+    const [lesson, postLesson] = usePostData(process.env.REACT_APP_API_URL+'/admin/add/')
 
     console.log(topic, lesson)
 

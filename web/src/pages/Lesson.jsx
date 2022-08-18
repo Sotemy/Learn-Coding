@@ -2,15 +2,15 @@ import React from 'react'
 import { useParams } from "react-router-dom";
 import { Container, Breadcrumb, Card, Spinner } from "react-bootstrap";
 import parse from 'html-react-parser';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import { useGetData } from '../hooks/useData'
-import { LinkContainer } from 'react-router-bootstrap';
 
 
 export const Lesson = () => {
 
     const param = useParams();
-    const data = useGetData(`http://localhost:4000/${param.title}/${param.lesson}`)
+    const data = useGetData(`${process.env.REACT_APP_API_URL}/${param.title}/${param.lesson}`)
 
     return (
 
@@ -20,32 +20,32 @@ export const Lesson = () => {
             </Spinner>
         ) : (
             <Container>
-<Breadcrumb>
+                <Breadcrumb>
 
-<LinkContainer to={`/`}>
-    <Breadcrumb.Item>
-        Home
-    </Breadcrumb.Item>
-</LinkContainer>
+                    <LinkContainer to={`/`}>
+                        <Breadcrumb.Item>
+                            Home
+                        </Breadcrumb.Item>
+                    </LinkContainer>
 
-<LinkContainer to={`/${data.topic}/${data.title}`}>
-    <Breadcrumb.Item active>
-        {data.title}
-    </Breadcrumb.Item>
-</LinkContainer>
+                    <LinkContainer to={`/${data.topic}/${data.title}`}>
+                        <Breadcrumb.Item active>
+                            {data.title}
+                        </Breadcrumb.Item>
+                    </LinkContainer>
 
-</Breadcrumb>
+                </Breadcrumb>
 
-<Card>
-    <Card.Header>{data.title}</Card.Header>
-    <Card.Body>
-        <Card.Text >
-        {parse(data.text)}
-        </Card.Text>
-    </Card.Body>
-</Card>
+                <Card>
+                    <Card.Header><h2>{data.title}</h2></Card.Header>
+                    <Card.Body>
+                        <Card.Text >
+                            {parse(data.text)}
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
 
-</Container>
+            </Container>
         )
 
     )

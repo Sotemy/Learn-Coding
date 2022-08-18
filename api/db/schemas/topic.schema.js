@@ -5,13 +5,9 @@ const topicSchema = mongoose.Schema({
 
     title: {
         type: String,
-        required: [true, 'Please add text'],
+        required: [true, 'Please add title'],
         unique: true
     },
-    text: {
-        type: String,
-        required: [true, 'Please add text']
-    }, 
     lessons: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Lessons'

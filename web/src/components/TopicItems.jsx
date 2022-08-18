@@ -24,7 +24,7 @@ export const TopicItems = ({ data }) => {
                                 {obj.lessons.map(lesson => (
 
                                     <LinkContainer to={`/${obj.title}/${lesson.title}`} key={lesson._id}>
-                                        <ListGroup.Item>{lesson.title}</ListGroup.Item>
+                                        <ListGroup.Item as="h4">{lesson.title}</ListGroup.Item>
                                     </LinkContainer>
 
                                 ))}
