@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd web; react-scripts build",
+    "build": "npm run build --prefix web",
     "server": "nodemon api/index.js",
     "web": "npm start --prefix web",
     "dev": " concurrently \"npm run server\" \"npm run web\" "
