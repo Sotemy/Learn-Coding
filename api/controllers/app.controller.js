@@ -3,7 +3,7 @@ const Topic = require("../db/schemas/topic.schema")
 const Lessons = require("../db/schemas/lessons.schema")
 
 const homeController = asyncHandler(async(req,res) => {
-    const data = await Topic.find()
+    const data = await Topic.find().populate("lessons")
     return res.status(200).json(data)
 })
 

@@ -1,7 +1,11 @@
 import React from 'react'
-import { useGetData } from '../hooks/useData'
 import { useParams } from "react-router-dom";
-import { Container, Card, ListGroup, Row, Col } from "react-bootstrap";
+import { Container, Breadcrumb, Card, Spinner } from "react-bootstrap";
+import parse from 'html-react-parser';
+
+import { useGetData } from '../hooks/useData'
+import { LinkContainer } from 'react-router-bootstrap';
+
 
 export const Lesson = () => {
 
@@ -9,80 +13,40 @@ export const Lesson = () => {
     const data = useGetData(`http://localhost:4000/${param.title}/${param.lesson}`)
 
     return (
-        // <Container>
-        <Row>
-        <Col sm={2}>
-        <ListGroup variant="flush">
-                        <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                        <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                        <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                    </ListGroup>
-        </Col>
-        <Col>
-        <Container className="main_page">
-                        <Card className="text-center">
-                            <Card.Header>{data.createdAt}</Card.Header>
-                            <Card.Body>
-                                <Card.Title>{data.title}</Card.Title>
-                                <Card.Text>
-                                    {data.text}
-                                </Card.Text>
-                            </Card.Body>
-                            <Card.Footer className="text-muted">{data.createdAt}</Card.Footer>
-                        </Card>
-                    </Container>
-        </Col>
-        </Row>
-        // </Container>
+
+        data.length === 0 ? (
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        ) : (
+            <Container>
+<Breadcrumb>
+
+<LinkContainer to={`/`}>
+    <Breadcrumb.Item>
+        Home
+    </Breadcrumb.Item>
+</LinkContainer>
+
+<LinkContainer to={`/${data.topic}/${data.title}`}>
+    <Breadcrumb.Item active>
+        {data.title}
+    </Breadcrumb.Item>
+</LinkContainer>
+
+</Breadcrumb>
+
+<Card>
+    <Card.Header>{data.title}</Card.Header>
+    <Card.Body>
+        <Card.Text >
+        {parse(data.text)}
+        </Card.Text>
+    </Card.Body>
+</Card>
+
+</Container>
+        )
+
     )
 }
-
-// <Container>
-// <Row>
-// <Col sm={4}>
-// <ListGroup variant="flush">
-//                 <ListGroup.Item>Cras justo odio</ListGroup.Item>
-//                 <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-//                 <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-//                 <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-//             </ListGroup>
-// </Col>
-// <Col>
-// <Container className="main_page">
-//                 <Card className="text-center">
-//                     <Card.Header>{data.createdAt}</Card.Header>
-//                     <Card.Body>
-//                         <Card.Title>{data.title}</Card.Title>
-//                         <Card.Text>
-//                             {data.text}
-//                         </Card.Text>
-//                     </Card.Body>
-//                     <Card.Footer className="text-muted">{data.createdAt}</Card.Footer>
-//                 </Card>
-//             </Container>
-// </Col>
-// </Row>
-// </Container>
-
-// <div>
-// <ListGroup variant="flush">
-//     <ListGroup.Item>Cras justo odio</ListGroup.Item>
-//     <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-//     <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-//     <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-// </ListGroup>
-// <Container className="main_page">
-//     <Card className="text-center">
-//         <Card.Header>{data.createdAt}</Card.Header>
-//         <Card.Body>
-//             <Card.Title>{data.title}</Card.Title>
-//             <Card.Text>
-//                 {data.text}
-//             </Card.Text>
-//         </Card.Body>
-//         <Card.Footer className="text-muted">{data.createdAt}</Card.Footer>
-//     </Card>
-// </Container>
-
-// </div>

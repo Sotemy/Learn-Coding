@@ -1,13 +1,16 @@
 import React from 'react'
 import { Container, Navbar } from "react-bootstrap"
+import { LinkContainer } from 'react-router-bootstrap'
 
 export const NavBar = () => {
   return (
     <Navbar bg="dark" variant="dark">
         <Container>
-        <Navbar.Brand href="#home">
-            LearnCode
-        </Navbar.Brand>
+          <LinkContainer to="/">
+            <Navbar.Brand>
+              LearnCode
+            </Navbar.Brand>
+          </LinkContainer>
         </Container>
     </Navbar>
   )

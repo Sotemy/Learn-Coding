@@ -4,8 +4,6 @@ export const useGetData = (url = "") => {
 
     const [value, setValue] = React.useState([])
 
-
-
     React.useEffect(()=>{
         const fetchData = async()=>{
             const response = await fetch(url)
@@ -13,7 +11,6 @@ export const useGetData = (url = "") => {
         }
         fetchData()
     }, [url])
-    console.log(value)
 
     return value
 
@@ -23,17 +20,20 @@ export const usePostData = (url = "") => {
 
     const [value, setValue] = React.useState('')
 
-    React.useEffect(()=>{
-        const fetchData = async()=>{
-            const response = await fetch(url, {
-                method: "post",
-            })
-            setValue(await response.json())
-        }
-        fetchData()
-    }, [url])
+    const fetchData = async(data)=>{
+        const response = await fetch(url, {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            body: new URLSearchParams(
+                data
+            )
+        })
+        setValue(await response.json())
+    }
 
-    return [value]
+    return [value, fetchData]
 
 }
 
