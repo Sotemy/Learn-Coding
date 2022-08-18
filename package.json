@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "build": "cd web; react-scripts build"
+    "build": "cd web; react-scripts build",
+    "server": "nodemon api/index.js",
+    "web": "npm start --prefix web",
+    "dev": " concurrently \"npm run server\" \"npm run web\" "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^7.3.0",
     "dotenv": "^16.0.1"
   }
 }
